@@ -18,8 +18,6 @@ export default class UserService {
     user.access_token = 'qiwhfnaklsujdnf'
     user.phone = '19858185202'
     user.user_id = '12314'
-    user.created_at = new Date().getTime().toString()
-    user.updated_at = new Date().getTime().toString()
 
     const newCategory = UserRepository.create(user);
 

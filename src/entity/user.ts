@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export default class User {
@@ -35,10 +35,10 @@ export default class User {
     @Column()
     user_id: string;
 
-    @Column()
+    @CreateDateColumn()
     created_at: string;
 
-    @Column()
+    @UpdateDateColumn()
     updated_at: string; 
 
 }
