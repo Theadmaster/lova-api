@@ -33,16 +33,16 @@ export default class SecretService {
     return ApiMsg.success('添加成功！');
   }
 
-  static async getSententces(info: any) {
+  static async getSententces(page: any) {
     const list = await getManager().getRepository(Secret)
                 .createQueryBuilder("secret")
-                .skip(info.pageNum * info.pageSize)
-                .take(info.pageSize)
+                // .skip(page.pageNum * page.pageSize)
+                .orderBy("RAND()")
+                .take(page.pageSize)
+                .getMany()
 
-    let data:object = { data: list }
-    let apiRes = new ApiMsg()
-    apiRes.setData(data)
-    
-    return apiRes
+    let res = { data: list }
+
+    return ApiMsg.success('获取成功!', res)
   }
 }
