@@ -1,6 +1,8 @@
 import { Context } from 'koa';
 import { getManager } from 'typeorm';
 import User from '../entity/user';
+import UserAdmin from 'src/entity/user-admin';
+import ApiMsg from 'src/common/api-msg';
 
 export default class UserService {
   static async addUser(context?: Context) {
@@ -24,5 +26,30 @@ export default class UserService {
     await UserRepository.save(newCategory);
 
     return 'add success';
+  }
+
+  static async adminLogin(loginForm: any) {
+
+    const UserRepository = getManager().getRepository(UserAdmin)
+                         
+    // const user = await UserRepository.createQueryBuilder("user_admin")
+    //             .select(['username', 'password', 'auth'])
+    //             .where({username: loginForm.username})
+    //             .getOne()
+    // console.log('shuch', user);
+
+    const user = await UserRepository.query(`select * from user_admin where user_admin.username=${loginForm.username}`)
+    
+    if (user && user.password === loginForm.password) {
+      let info = {
+        roles: ['admin'],
+        introduction: 'I am a super administrator',
+        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+        name: 'Super Admin'
+      }
+      return ApiMsg.success('login success', info)
+    } else {
+      return ApiMsg.parameterError('用户名或密码错误！请重新登陆。')
+    }
   }
 }

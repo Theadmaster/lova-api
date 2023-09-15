@@ -33,7 +33,8 @@ export default class SecretService {
     return ApiMsg.success('添加成功！');
   }
 
-  static async getSententces(page: any) {
+  // mini rand
+  static async getSentences(page: any) {
     const list = await getManager().getRepository(Secret)
                 .createQueryBuilder("secret")
                 // .skip(page.pageNum * page.pageSize)
@@ -44,5 +45,36 @@ export default class SecretService {
     let res = { data: list }
 
     return ApiMsg.success('获取成功!', res)
+  }
+
+  // get all sentences
+  static async getAllSentences(page: any) {
+    const list = await getManager().getRepository(Secret)
+                .createQueryBuilder("secret")
+                .skip(page.pageNum * page.pageSize)
+                .take(page.pageSize)
+                .getMany()
+
+    let res = { data: list }
+
+    return ApiMsg.success('获取成功!', res)
+  }
+
+  // modify
+  static async modifySentence(sentenceInfo: Secret) {
+
+    let sentence = new Secret()
+    sentence.text = sentenceInfo.text
+    sentence.countdown = sentenceInfo.countdown
+    sentence.level = sentenceInfo.level
+    
+    await getManager().getRepository(Secret)
+        .createQueryBuilder()
+        .update(Secret)
+        .set(sentence)
+        .where({ id: sentenceInfo.id })
+        .execute();
+
+    return ApiMsg.success('修改成功！');
   }
 }

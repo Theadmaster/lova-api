@@ -7,5 +7,11 @@ export default [
     path: baseApi + '/addUser',
     method: 'post',
     action: UserController.addUser
+  },
+  {
+    path: baseApi + '/adminLogin',
+    method: 'post',
+    action: UserController.adminLogin
   }
+
 ];

@@ -17,5 +17,15 @@ export default [
     path: baseApi + '/getSentences',
     method: 'post',
     action: SecretController.getSentences
-  }
+  },
+  {
+    path: baseApi + '/getAllSentences',
+    method: 'post',
+    action: SecretController.getAllSentences
+  },
+  {
+    path: baseApi + '/modifySentence',
+    method: 'post',
+    action: SecretController.modifySentence
+  },
 ];

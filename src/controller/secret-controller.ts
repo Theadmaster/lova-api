@@ -1,3 +1,4 @@
+import Secret from 'src/entity/secret';
 import SecretService from '../service/secret-service';
 
 export default class SecretController {
@@ -24,6 +25,26 @@ export default class SecretController {
     }
     let page:Page = body
 
-    ctx.body = await SecretService.getSententces(page);
+    ctx.body = await SecretService.getSentences(page);
+  }
+
+  static async getAllSentences(ctx) {
+
+    let body:any = ctx.request.body
+    interface Page {
+        pageNum: number,
+        pageSize: number
+    }
+    let page:Page = body
+
+    ctx.body = await SecretService.getAllSentences(page);
+  }
+
+  static async modifySentence(ctx) {
+
+    let body:Secret = ctx.request.body
+    
+
+    ctx.body = await SecretService.modifySentence(body);
   }
 }
