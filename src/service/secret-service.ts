@@ -24,7 +24,7 @@ export default class SecretService {
     
     const SecretRepository = getManager().getRepository(Secret);
 
-    let id = sentenceInfo.sentenceId
+    let id = sentenceInfo.id
 
     const sentence = await SecretRepository.findOne({ where: {id: id}})
     
@@ -49,19 +49,29 @@ export default class SecretService {
 
   // get all sentences
   static async getAllSentences(page: any) {
-    const list = await getManager().getRepository(Secret)
+    const SecretRepository = getManager().getRepository(Secret)
+    const count = await SecretRepository.createQueryBuilder("secret")
+                  .getCount()
+
+    const list = await SecretRepository
                 .createQueryBuilder("secret")
-                .skip(page.pageNum * page.pageSize)
+                .skip((page.pageNum-1) * page.pageSize)
                 .take(page.pageSize)
                 .getMany()
 
-    let res = { data: list }
+    let res = { data: list, pageInfo: {
+      pageNum: page.pageNum,
+      pageSize: page.pageSize,
+      count: count
+    } }
 
     return ApiMsg.success('获取成功!', res)
   }
 
   // modify
   static async modifySentence(sentenceInfo: Secret) {
+
+    console.log('info', sentenceInfo);
 
     let sentence = new Secret()
     sentence.text = sentenceInfo.text

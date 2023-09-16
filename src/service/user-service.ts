@@ -38,8 +38,10 @@ export default class UserService {
     //             .getOne()
     // console.log('shuch', user);
 
-    const user = await UserRepository.query(`select * from user_admin where user_admin.username=${loginForm.username}`)
-    
+    const user = await UserRepository.createQueryBuilder("userAdmin")
+                .where("userAdmin.username = :username", {username: loginForm.username})
+                .getOne()
+
     if (user && user.password === loginForm.password) {
       let info = {
         roles: ['admin'],

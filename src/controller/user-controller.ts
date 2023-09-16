@@ -19,7 +19,7 @@ export default class UserController {
     }
 
     let loginForm:Login = ctx.request.body
-    console.log(loginForm);
+    // console.log(loginForm);
     
     ctx.body = await UserService.adminLogin(loginForm);
   }
