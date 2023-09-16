@@ -1,8 +1,8 @@
 import { Context } from 'koa';
 import { getManager } from 'typeorm';
 import User from '../entity/user';
-import UserAdmin from 'src/entity/user-admin';
-import ApiMsg from 'src/common/api-msg';
+import UserAdmin from '../entity/user-admin';
+import ApiMsg from '../common/api-msg';
 
 export default class UserService {
   static async addUser(context?: Context) {
