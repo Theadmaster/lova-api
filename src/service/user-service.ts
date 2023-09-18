@@ -49,7 +49,7 @@ export default class UserService {
       let token = jwtUtils.auth(ctx, loginForm)
       username = loginForm.username
 
-      return ApiMsg.success('login success')
+      return ApiMsg.success('login success', {token: token})
     } else {
       return ApiMsg.parameterError('用户名或密码错误！请重新登陆。')
     }
