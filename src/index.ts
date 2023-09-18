@@ -4,7 +4,7 @@ import * as cors from 'koa2-cors'
 import { createConnection } from 'typeorm';
 import * as Router from 'koa-router';
 import * as bodyParser from 'koa-bodyparser';
-// import AppRoutes from './routes';
+import jwtUtils from './utils/jwtUtils';
 import AppRoutes from './router/index';
 
 
@@ -15,6 +15,11 @@ createConnection()
     const router = new Router();
     const port = process.env.PORT || 3000;
 
+    router.prefix('/api')
+    
+    // auth jwt
+    router.use(['/admin'], jwtUtils.validateToken.bind(jwtUtils))
+    
     // register all application routes
     AppRoutes.forEach(route => router[route.method](route.path, route.action));
 

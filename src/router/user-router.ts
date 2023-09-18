@@ -1,17 +1,25 @@
 import UserController from '../controller/user-controller';
 
-const baseApi: string = '/api/v1'
+const baseUrl = '/admin'
 
-export default [
+const routes = [
   {
-    path: baseApi + '/addUser',
+    path: '/addUser',
     method: 'post',
     action: UserController.addUser
   },
   {
-    path: baseApi + '/adminLogin',
+    path: '/user/login',
     method: 'post',
     action: UserController.adminLogin
-  }
+  },
+  {
+    path: '/user/info',
+    method: 'get',
+    action: UserController.getAdminUserInfo
+  },
+]
 
-];
+routes.forEach(route => route.path = baseUrl + route.path)
+
+export default routes;

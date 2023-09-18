@@ -9,12 +9,13 @@
     "koa"
   ],
   "scripts": {
-    "start": "cross-env NODE_ENV=dev nodemon ",
+    "start": "NODE_ENV=dev nodemon ",
     "build": "rm -rf dist && tsc",
     "pro": "node_modules/.bin/pm2 start --env=production",
     "stop": "node_modules/.bin/pm2 stop all"
   },
   "dependencies": {
+    "jsonwebtoken": "^9.0.2",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",

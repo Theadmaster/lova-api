@@ -1,30 +1,29 @@
 import SecretController from '../controller/secret-controller';
 
-const baseApi: string = '/api/v1'
 
 export default [
   {
-    path: baseApi + '/addSentence',
+    path: '/admin/addSentence',
     method: 'post',
     action: SecretController.addSentence
   },
   {
-    path: baseApi + '/deleteSentence',
+    path: '/admin/deleteSentence',
     method: 'post',
     action: SecretController.deleteSentence
   },
   {
-    path: baseApi + '/getSentences',
+    path: '/v1/getSentences',
     method: 'post',
     action: SecretController.getSentences
   },
   {
-    path: baseApi + '/getAllSentences',
+    path: '/admin/getAllSentences',
     method: 'post',
     action: SecretController.getAllSentences
   },
   {
-    path: baseApi + '/modifySentence',
+    path: '/admin/modifySentence',
     method: 'post',
     action: SecretController.modifySentence
   },

@@ -10,4 +10,10 @@ export default class UserAdmin {
 
   @Column()
   password: string;
+
+  @Column()
+  role: string;
+
+  @Column()
+  avatar: string;
 }

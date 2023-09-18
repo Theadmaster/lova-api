@@ -3,6 +3,9 @@ import { getManager } from 'typeorm';
 import User from '../entity/user';
 import UserAdmin from '../entity/user-admin';
 import ApiMsg from '../common/api-msg';
+import jwtUtils from '../utils/jwtUtils';
+
+let username;
 
 export default class UserService {
   static async addUser(context?: Context) {
@@ -28,7 +31,7 @@ export default class UserService {
     return 'add success';
   }
 
-  static async adminLogin(loginForm: any) {
+  static async adminLogin(ctx: Context, loginForm: any) {
 
     const UserRepository = getManager().getRepository(UserAdmin)
                          
@@ -43,15 +46,23 @@ export default class UserService {
                 .getOne()
 
     if (user && user.password === loginForm.password) {
-      let info = {
-        roles: ['admin'],
-        introduction: 'I am a super administrator',
-        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-        name: 'Super Admin'
-      }
-      return ApiMsg.success('login success', info)
+      let token = jwtUtils.auth(ctx, loginForm)
+      username = loginForm.username
+
+      return ApiMsg.success('login success')
     } else {
       return ApiMsg.parameterError('用户名或密码错误！请重新登陆。')
     }
+  }
+
+  static async getAdminUserInfo(ctx: Context) {
+    const UserRepository = getManager().getRepository(UserAdmin)
+
+    const userInfo = await UserRepository.createQueryBuilder("userAdmin")
+                    .select([ 'userAdmin.avatar', 'userAdmin.role'])
+                    .where("userAdmin.username = :username", {username: username})
+                    .getOne()
+
+    return ApiMsg.success('success', userInfo)
   }
 }

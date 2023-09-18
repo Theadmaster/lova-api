@@ -19,8 +19,13 @@ export default class UserController {
     }
 
     let loginForm:Login = ctx.request.body
-    // console.log(loginForm);
     
-    ctx.body = await UserService.adminLogin(loginForm);
+    ctx.body = await UserService.adminLogin(ctx, loginForm)
+  }
+
+  static async getAdminUserInfo(ctx) {
+
+    ctx.body = await UserService.getAdminUserInfo(ctx)
+
   }
 }
