@@ -8,7 +8,7 @@ export enum levelType {
     diy = 5
 }
 
-@Entity()
+@Entity("secret")
 export default class Secret {
   @PrimaryGeneratedColumn()
   id: number;

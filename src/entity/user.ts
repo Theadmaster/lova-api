@@ -1,39 +1,42 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity()
+@Entity("user")
 export default class User {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    username: string;
+    username?: string;
 
     @Column()
-    nickname: string;
+    nickname?: string;
 
     @Column()
-    gender: number;
+    avatar?: string;
 
     @Column()
-    phone: string;
+    gender?: number;
 
     @Column()
-    appid: string;
+    phone?: string;
 
     @Column()
-    openid: string;
+    appid?: string;
 
     @Column()
-    unionid: string;
+    openid?: string;
 
     @Column()
-    session_key: string;
+    unionid?: string;
 
     @Column()
-    access_token: string;
+    session_key?: string;
 
     @Column()
-    user_id: string;
+    access_token?: string;
+
+    @Column()
+    user_id?: string;
 
     @CreateDateColumn()
     created_at: string;

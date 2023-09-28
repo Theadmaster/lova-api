@@ -28,4 +28,21 @@ export default class UserController {
     ctx.body = await UserService.getAdminUserInfo(ctx)
 
   }
+
+  static async miniUserLogin(ctx) {
+
+    let code = ctx.request.body.code
+
+    console.log('code:', code);
+
+    ctx.body = await UserService.miniUserLogin(ctx, code)
+  }
+
+  static async saveMiniUserInfo(ctx) {
+    let userInfo = ctx.request.body
+
+    // console.log('userinfo:', userInfo);
+
+    ctx.body = await UserService.saveMiniUserInfo(ctx, userInfo)
+  }
 }
